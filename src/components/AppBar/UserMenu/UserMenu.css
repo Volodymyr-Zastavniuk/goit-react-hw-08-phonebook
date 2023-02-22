@@ -1,0 +1,9 @@
+.UserMenu-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.UserMenu-wrapper > p {
+  margin: 0;
+}

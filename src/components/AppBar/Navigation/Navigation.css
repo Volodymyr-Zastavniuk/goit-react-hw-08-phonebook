@@ -1,0 +1,18 @@
+.Nav__list {
+  margin: 0;
+  display: flex;
+  list-style: none;
+  gap: 20px;
+  padding: 0;
+}
+.Nav__list-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.Nav__list-link:hover {
+  color: red;
+}
+.active {
+  box-shadow: 0 4px 0px 0px rgb(0 0 0 / 20%);
+}
