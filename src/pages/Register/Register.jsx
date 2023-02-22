@@ -5,7 +5,7 @@ import { getContactsError } from 'redux/selectors';
 import { useState } from 'react';
 import { authRegisterThunk } from 'redux/auth/auth.operations';
 import { Helmet } from 'react-helmet';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 const loginFormInitialState = {
   name: '',
@@ -14,7 +14,7 @@ const loginFormInitialState = {
 };
 
 export default function RegisterPage() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const dispatch = useDispatch();
   const error = useSelector(getContactsError);
   const [values, setValues] = useState(loginFormInitialState);
@@ -26,8 +26,9 @@ export default function RegisterPage() {
 
   const handleFormSubmit = event => {
     event.preventDefault();
+
     dispatch(authRegisterThunk(values));
-    navigate('/', { replace: true });
+    // navigate('/', { replace: true });
     // await dispatch(authLoginThunk({ email: values.email, password: values.password })).unwrap();
     resetForm();
   };

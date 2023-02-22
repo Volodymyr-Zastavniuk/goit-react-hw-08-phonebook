@@ -15,7 +15,6 @@ import {
 // };
 
 const handleAuthError = (state, { error }) => {
-  state.user = { name: null, email: null };
   state.isLoggedIn = false;
   state.token = null;
   state.error = error;
@@ -26,29 +25,29 @@ export const authSlice = createSlice({
   initialState: authInitState,
   extraReducers: builder => {
     builder
-      .addCase(authLoginThunk.pending, state => (state.isLoading = true))
+      .addCase(authLoginThunk.pending, state => state)
       .addCase(authLoginThunk.rejected, handleAuthError)
-      .addCase(authLoginThunk.fulfilled, (state, { payload }) => {
-        state.user = payload.user;
-        state.token = payload.token;
-        state.isLoggedIn = true;
-      })
-      .addCase(authRegisterThunk.pending, state => (state.isLoading = true))
+      // .addCase(authLoginThunk.fulfilled, (state, action) => {
+      //   state.user = action.payload.user;
+      //   state.token = action.payload.token;
+      //   state.isLoggedIn = true;
+      // })
+      .addCase(authRegisterThunk.pending, state => state)
       .addCase(authRegisterThunk.rejected, handleAuthError)
       .addCase(authRegisterThunk.fulfilled, (state, { payload }) => {
         state.user = payload.user;
         state.token = payload.token;
         state.isLoggedIn = true;
       })
-      .addCase(authLogoutThunk.pending, state => (state.isLoading = true))
+      .addCase(authLogoutThunk.pending, state => state)
       .addCase(authLogoutThunk.rejected, handleAuthError)
       .addCase(authLogoutThunk.fulfilled, state => {
         state.user = { name: null, email: null };
         state.isLoggedIn = false;
         state.token = null;
       })
-      .addCase(authRefreshUserThunk.pending, state => (state.isLoading = true))
-      .addCase(authRefreshUserThunk.rejected, handleAuthError)
+      .addCase(authRefreshUserThunk.pending, state => state)
+      .addCase(authRefreshUserThunk.rejected, () => authInitState)
       .addCase(authRefreshUserThunk.fulfilled, (state, { payload }) => {
         state.user = payload;
         state.isLoggedIn = true;
