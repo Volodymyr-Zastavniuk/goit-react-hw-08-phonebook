@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getContacts, getContactsError, getIsLoading } from 'redux/selectors';
-import { addContact } from 'redux/contacts/contacts.operations';
-import './ContactForm.css';
+import './EditForm.css';
+import { editContact } from 'redux/contacts/contacts.operations';
 
-export default function ContactForm() {
+export default function EditForm({ id, onSubmit }) {
   const dispatch = useDispatch();
   const contacts = useSelector(getContacts);
   const contactsError = useSelector(getContactsError);
@@ -35,9 +35,10 @@ export default function ContactForm() {
     ) {
       return alert(`${name} is already in contacts.`);
     }
-
-    dispatch(addContact({ name, number }));
+    const contactToEdit = { id, name, number };
+    dispatch(editContact(contactToEdit));
     resetForm();
+    onSubmit();
   };
 
   const resetForm = () => {
@@ -46,9 +47,9 @@ export default function ContactForm() {
   };
 
   return (
-    <form onSubmit={handleFormSubmit} className="contact__form">
-      <label className="contact__label">
-        Name
+    <form onSubmit={handleFormSubmit} className="edit__form">
+      <label className="edit__label">
+        New name
         <input
           type="text"
           name="name"
@@ -57,12 +58,12 @@ export default function ContactForm() {
           required
           value={name}
           onChange={handleInputChange}
-          className="contact__input"
+          className="edit__input"
         />
       </label>
 
-      <label className="contact__label">
-        Number
+      <label className="edit__label">
+        New number
         <input
           type="tel"
           name="number"
@@ -71,16 +72,16 @@ export default function ContactForm() {
           required
           value={number}
           onChange={handleInputChange}
-          className="contact__input"
+          className="edit__input"
         />
       </label>
 
       <button
         type="submit"
-        className="contact__btn"
+        className="edit__btn"
         disabled={contactsError || isLoading}
       >
-        Add contact
+        Save
       </button>
     </form>
   );

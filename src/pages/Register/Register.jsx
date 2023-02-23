@@ -1,11 +1,8 @@
-// import { addContact } from 'redux/Contacts/contacts.operations';
-// import './ContactForm.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { getContactsError } from 'redux/selectors';
+import { getAuthError, getIsRefreshing } from 'redux/selectors';
 import { useState } from 'react';
 import { authRegisterThunk } from 'redux/auth/auth.operations';
 import { Helmet } from 'react-helmet';
-// import { useNavigate } from 'react-router-dom';
 
 const loginFormInitialState = {
   name: '',
@@ -14,9 +11,9 @@ const loginFormInitialState = {
 };
 
 export default function RegisterPage() {
-  // const navigate = useNavigate();
   const dispatch = useDispatch();
-  const error = useSelector(getContactsError);
+  const authError = useSelector(getAuthError);
+  const isRefreshing = useSelector(getIsRefreshing);
   const [values, setValues] = useState(loginFormInitialState);
 
   const handleChange = event => {
@@ -24,13 +21,15 @@ export default function RegisterPage() {
     setValues(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleFormSubmit = event => {
+  const handleFormSubmit = async event => {
     event.preventDefault();
-
-    dispatch(authRegisterThunk(values));
-    // navigate('/', { replace: true });
-    // await dispatch(authLoginThunk({ email: values.email, password: values.password })).unwrap();
-    resetForm();
+    try {
+      dispatch(authRegisterThunk(values));
+    } catch (error) {
+      console.log(error);
+    } finally {
+      resetForm();
+    }
   };
 
   const resetForm = () => {
@@ -80,9 +79,12 @@ export default function RegisterPage() {
           />
         </label>
 
-        <button type="submit" className="contact__btn" disabled={error}>
+        <button type="submit" className="contact__btn" disabled={isRefreshing}>
           Sign In
         </button>
+        {authError === 'register' && (
+          <p>Please try again with other credentials.</p>
+        )}
       </form>
     </>
   );

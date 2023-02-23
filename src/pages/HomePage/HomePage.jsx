@@ -1,11 +1,12 @@
 import { Helmet } from 'react-helmet';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getUserName } from 'redux/selectors';
+import { getIsRefreshing, getUserName } from 'redux/selectors';
 import { getIsLoggedIn } from 'redux/selectors';
 
 export default function HomePage() {
   const isLoggedIn = useSelector(getIsLoggedIn);
+  const isRefreshing = useSelector(getIsRefreshing);
   const userName = useSelector(getUserName);
 
   return (
@@ -13,7 +14,7 @@ export default function HomePage() {
       <Helmet>
         <title>Phonebook</title>
       </Helmet>
-      {isLoggedIn ? (
+      {isLoggedIn && !isRefreshing && (
         <>
           <h2>Hello {userName}</h2>
           <p>
@@ -21,7 +22,9 @@ export default function HomePage() {
             <Link to="/contacts">contacts page</Link>.
           </p>
         </>
-      ) : (
+      )}
+
+      {!isLoggedIn && !isRefreshing && (
         <>
           <h2>Your personal phonebook</h2>
           <p>

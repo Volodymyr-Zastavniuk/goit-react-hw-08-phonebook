@@ -1,15 +1,19 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import ContactListItem from './ContactListItem/ContactListItem';
-import { useDispatch, useSelector } from 'react-redux';
-import { getContacts, getFilterValue, getIsLoading } from 'redux/selectors';
+import { useSelector } from 'react-redux';
+import {
+  getContacts,
+  getFilterValue,
+  getIsLoading,
+  getIsRefreshing,
+} from 'redux/selectors';
 import './ContactList.css';
-import { fetchContacts } from 'redux/contacts/contacts.operations';
 
 const ContactList = () => {
-  const dispatch = useDispatch();
   const contacts = useSelector(getContacts);
   const filterValue = useSelector(getFilterValue);
   const isLoading = useSelector(getIsLoading);
+  const isRefreshing = useSelector(getIsRefreshing);
 
   const getFilteredContacts = () => {
     const normalizedFilter = filterValue.toLowerCase().trim();
@@ -19,13 +23,9 @@ const ContactList = () => {
   };
   const filteredContacts = getFilteredContacts();
 
-  useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
-
   return (
     <>
-      {contacts.length === 0 && !isLoading && (
+      {contacts.length === 0 && !isLoading && !isRefreshing && (
         <p>Please add some contacts to the list</p>
       )}
 

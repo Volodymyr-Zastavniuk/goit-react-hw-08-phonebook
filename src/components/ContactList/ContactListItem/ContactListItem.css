@@ -1,9 +1,13 @@
 .contact-list__item {
   display: flex;
+  gap: 10px;
   justify-content: space-between;
+  align-items: start;
   list-style: circle;
 }
-
+.contact-list__info {
+  flex-grow: 1;
+}
 .contact-list__btn {
   border-radius: 5px;
   font-size: 16px;

@@ -1,0 +1,35 @@
+.edit__form {
+  margin-top: 6px;
+  width: 300px;
+  padding: 10px;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  font-size: 16px;
+  font-weight: 500;
+  border: 1px solid grey;
+}
+.edit__label {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+}
+.edit__input {
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: 500;
+}
+.edit__btn {
+  align-self: flex-end;
+  width: 80px;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  border: 1px solid grey;
+  cursor: pointer;
+}
+.edit__btn:hover,
+.edit__btn:focus {
+  background-color: rgb(171, 167, 167);
+}

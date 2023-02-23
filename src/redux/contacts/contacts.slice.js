@@ -3,6 +3,7 @@ import { contactsInitState } from './contacts.init-state';
 import {
   addContact,
   deleteContact,
+  editContact,
   fetchContacts,
 } from './contacts.operations';
 
@@ -42,6 +43,18 @@ export const contactsSlice = createSlice({
       .addCase(deleteContact.fulfilled, (state, { payload }) => {
         handleFulfiled(state);
         state.items = state.items.filter(item => item.id !== payload);
+      })
+      .addCase(editContact.pending, handlePending)
+      .addCase(editContact.rejected, handleError)
+      .addCase(editContact.fulfilled, (state, { payload }) => {
+        handleFulfiled(state);
+        state.items = state.items.map(item => {
+          if (item.id === payload.id) {
+            item.name = payload.name;
+            item.number = payload.number;
+          }
+          return item;
+        });
       });
   },
 });

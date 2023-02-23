@@ -6,6 +6,7 @@ import { getIsLoggedIn } from 'redux/selectors';
 
 export default function AppBar() {
   const isLoggedIn = useSelector(getIsLoggedIn);
+
   return (
     <header className="AppBar">
       <h1 className="AppBar-title">Phonebook</h1>

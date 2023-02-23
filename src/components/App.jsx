@@ -8,13 +8,14 @@ import RegisterPage from '../pages/Register/Register';
 import Layout from './Layout/Layout';
 import { authRefreshUserThunk } from 'redux/auth/auth.operations';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAuthError, getToken } from 'redux/selectors';
+import { getToken } from 'redux/selectors';
+import { PublicRoute } from './AuthRoutes/PublicRoute';
+import { PrivatRoute } from './AuthRoutes/PrivatRoute';
 
 export default function App() {
   const dispatch = useDispatch();
   const token = useSelector(getToken);
-  const isAuthError = useSelector(getAuthError);
-  // const isLoading = useSelector(getIsLoading);
+  // const isRefreshing = useSelector(getIsRefreshing);
 
   useEffect(() => {
     dispatch(authRefreshUserThunk());
@@ -24,18 +25,18 @@ export default function App() {
     <>
       <BrowserRouter basename="goit-react-hw-08-phonebook">
         <Layout>
-          {isAuthError ? (
-            <p>Something went wrong, please try again later...</p>
-          ) : (
-            <Suspense fallback={<p>Loading...</p>}>
-              <Routes>
-                <Route path="" element={<HomePage />} />
+          <Suspense fallback={<p>Loading...</p>}>
+            <Routes>
+              <Route path="" element={<HomePage />} />
+              <Route path="" element={<PrivatRoute />}>
                 <Route path="/contacts" element={<ContactsPage />} />
+              </Route>
+              <Route path="" element={<PublicRoute />}>
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="register" element={<RegisterPage />} />
-              </Routes>
-            </Suspense>
-          )}
+              </Route>
+            </Routes>
+          </Suspense>
         </Layout>
       </BrowserRouter>
     </>
