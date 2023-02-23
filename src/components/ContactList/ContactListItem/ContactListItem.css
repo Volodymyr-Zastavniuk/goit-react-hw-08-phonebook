@@ -2,9 +2,10 @@
   display: flex;
   gap: 10px;
   justify-content: space-between;
-  align-items: start;
+  align-items: flex-start;
   list-style: circle;
 }
+
 .contact-list__info {
   flex-grow: 1;
 }

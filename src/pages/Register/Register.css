@@ -1,0 +1,31 @@
+.register__form {
+  display: flex;
+  gap: 15px;
+  flex-direction: column;
+  font-size: 20px;
+  font-weight: 500;
+}
+.register__label {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.register__input {
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: 500;
+}
+.register__btn {
+  width: 150px;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  border: 1px solid grey;
+  cursor: pointer;
+}
+.register__btn:hover,
+.register__btn:focus {
+  background-color: rgb(171, 167, 167);
+}

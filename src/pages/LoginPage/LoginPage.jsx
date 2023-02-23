@@ -1,10 +1,9 @@
-// import { addContact } from 'redux/Contacts/contacts.operations';
-// import './ContactForm.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAuthError, getIsRefreshing } from 'redux/selectors';
 import { useState } from 'react';
 import { authLoginThunk } from 'redux/auth/auth.operations';
 import { Helmet } from 'react-helmet';
+import './LoginPage.css';
 
 const loginFormInitialState = {
   email: '',
@@ -41,9 +40,9 @@ export default function LoginPage() {
       <Helmet>
         <title>Login</title>
       </Helmet>
-      <form onSubmit={handleFormSubmit} className="contact__form">
+      <form onSubmit={handleFormSubmit} className="login__form">
         <h2>Please login</h2>
-        <label className="contact__label">
+        <label className="login__label">
           E-mail
           <input
             type="email"
@@ -51,11 +50,11 @@ export default function LoginPage() {
             required
             value={values.email}
             onChange={handleChange}
-            className="contact__input"
+            className="login__input"
           />
         </label>
 
-        <label className="contact__label">
+        <label className="login__label">
           Password
           <input
             type="password"
@@ -63,11 +62,11 @@ export default function LoginPage() {
             required
             value={values.password}
             onChange={handleChange}
-            className="contact__input"
+            className="login__input"
           />
         </label>
 
-        <button type="submit" className="contact__btn" disabled={isRefreshing}>
+        <button type="submit" className="login__btn" disabled={isRefreshing}>
           Login
         </button>
 

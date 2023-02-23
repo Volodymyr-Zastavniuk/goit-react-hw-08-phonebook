@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getContacts, getContactsError, getIsLoading } from 'redux/selectors';
-import './EditForm.css';
 import { editContact } from 'redux/contacts/contacts.operations';
+import './EditForm.css';
 
 export default function EditForm({ id, onSubmit }) {
   const dispatch = useDispatch();

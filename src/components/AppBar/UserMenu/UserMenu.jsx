@@ -1,7 +1,7 @@
 import { authLogoutThunk } from 'redux/auth/auth.operations';
-import './UserMenu.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserEmail } from 'redux/selectors';
+import './UserMenu.css';
 
 export default function UserMenu() {
   const currentUserEmail = useSelector(getUserEmail);
@@ -12,7 +12,7 @@ export default function UserMenu() {
       <button
         type="button"
         onClick={() => dispatch(authLogoutThunk())}
-        className="contact-list__btn"
+        className="UserMenu__btn"
       >
         Logout
       </button>

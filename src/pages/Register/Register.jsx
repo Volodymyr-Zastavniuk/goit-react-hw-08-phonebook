@@ -3,6 +3,7 @@ import { getAuthError, getIsRefreshing } from 'redux/selectors';
 import { useState } from 'react';
 import { authRegisterThunk } from 'redux/auth/auth.operations';
 import { Helmet } from 'react-helmet';
+import './Register.css';
 
 const loginFormInitialState = {
   name: '',
@@ -41,9 +42,9 @@ export default function RegisterPage() {
       <Helmet>
         <title>Sign In</title>
       </Helmet>
-      <form onSubmit={handleFormSubmit} className="contact__form">
+      <form onSubmit={handleFormSubmit} className="register__form">
         <h2>Please Sign In</h2>
-        <label className="contact__label">
+        <label className="register__label">
           Name
           <input
             type="name"
@@ -51,11 +52,11 @@ export default function RegisterPage() {
             required
             value={values.name}
             onChange={handleChange}
-            className="contact__input"
+            className="register__input"
           />
         </label>
 
-        <label className="contact__label">
+        <label className="register__label">
           E-mail
           <input
             type="email"
@@ -63,11 +64,11 @@ export default function RegisterPage() {
             required
             value={values.email}
             onChange={handleChange}
-            className="contact__input"
+            className="register__input"
           />
         </label>
 
-        <label className="contact__label">
+        <label className="register__label">
           Password
           <input
             type="password"
@@ -75,11 +76,11 @@ export default function RegisterPage() {
             required
             value={values.password}
             onChange={handleChange}
-            className="contact__input"
+            className="register__input"
           />
         </label>
 
-        <button type="submit" className="contact__btn" disabled={isRefreshing}>
+        <button type="submit" className="register__btn" disabled={isRefreshing}>
           Sign In
         </button>
         {authError === 'register' && (

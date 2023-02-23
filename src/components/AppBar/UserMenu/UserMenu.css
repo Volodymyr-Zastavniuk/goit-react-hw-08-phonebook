@@ -7,3 +7,17 @@
 .UserMenu-wrapper > p {
   margin: 0;
 }
+
+.UserMenu__btn {
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  border: 1px solid grey;
+  cursor: pointer;
+}
+
+.UserMenu__btn:hover,
+.UserMenu__btn:focus {
+  background-color: rgb(171, 167, 167);
+}

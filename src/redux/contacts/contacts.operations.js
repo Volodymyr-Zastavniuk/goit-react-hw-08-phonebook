@@ -1,17 +1,10 @@
-// import { getToken } from 'redux/selectors';
 import { privateApi } from 'services/baseApi';
 const { createAsyncThunk } = require('@reduxjs/toolkit');
 
 export const fetchContacts = createAsyncThunk(
   'contacts/fetchAllContacts',
   async (_, thunkAPI) => {
-    // const persistedToken = getToken(thunkAPI.getState());
-
-    // if (persistedToken === null) {
-    //   return thunkAPI.rejectWithValue('Unable to fetch contacts');
-    // }
     try {
-      // token.set(persistedToken);
       const { data } = await privateApi.get('/contacts');
       return data;
     } catch (error) {
