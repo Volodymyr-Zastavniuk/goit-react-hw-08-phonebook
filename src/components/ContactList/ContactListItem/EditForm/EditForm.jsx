@@ -1,26 +1,27 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getContacts, getContactsError, getIsLoading } from 'redux/selectors';
+import { getContactsError, getIsLoading } from 'redux/selectors';
 import { editContact } from 'redux/contacts/contacts.operations';
 import './EditForm.css';
 
-export default function EditForm({ id, onSubmit }) {
+export default function EditForm({ contact, onSubmit }) {
   const dispatch = useDispatch();
-  const contacts = useSelector(getContacts);
   const contactsError = useSelector(getContactsError);
   const isLoading = useSelector(getIsLoading);
 
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const { id, name, number } = contact;
+
+  const [editedName, setEditedName] = useState(name);
+  const [editedNumber, setEditedNumber] = useState(number);
 
   const handleInputChange = event => {
     const { name, value } = event.currentTarget;
     switch (name) {
-      case 'name':
-        setName(value);
+      case 'editedName':
+        setEditedName(value);
         break;
-      case 'number':
-        setNumber(value);
+      case 'editedNumber':
+        setEditedNumber(value);
         break;
       default:
         console.log('No case for this event');
@@ -29,21 +30,9 @@ export default function EditForm({ id, onSubmit }) {
 
   const handleFormSubmit = event => {
     event.preventDefault();
-    const normalizedName = name.toLowerCase().trim();
-    if (
-      contacts.find(contact => contact.name.toLowerCase() === normalizedName)
-    ) {
-      return alert(`${name} is already in contacts.`);
-    }
-    const contactToEdit = { id, name, number };
+    const contactToEdit = { id, name: editedName, number: editedNumber };
     dispatch(editContact(contactToEdit));
-    resetForm();
     onSubmit();
-  };
-
-  const resetForm = () => {
-    setName('');
-    setNumber('');
   };
 
   return (
@@ -52,13 +41,14 @@ export default function EditForm({ id, onSubmit }) {
         New name
         <input
           type="text"
-          name="name"
+          name="editedName"
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
-          value={name}
+          value={editedName}
           onChange={handleInputChange}
           className="edit__input"
+          maxlength="32"
         />
       </label>
 
@@ -66,11 +56,11 @@ export default function EditForm({ id, onSubmit }) {
         New number
         <input
           type="tel"
-          name="number"
-          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+          name="editedNumber"
+          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,4}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
-          value={number}
+          value={editedNumber}
           onChange={handleInputChange}
           className="edit__input"
         />
@@ -86,3 +76,11 @@ export default function EditForm({ id, onSubmit }) {
     </form>
   );
 }
+
+// ContactListItem.propTypes = {
+//   contact: PropTypes.shape({
+//     id: PropTypes.string.isRequired,
+//     name: PropTypes.string.isRequired,
+//     number: PropTypes.string.isRequired,
+//   }),
+// };

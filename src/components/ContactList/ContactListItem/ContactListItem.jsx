@@ -7,7 +7,8 @@ import { deleteContact } from 'redux/contacts/contacts.operations';
 import { getIsLoading } from 'redux/selectors';
 import EditForm from './EditForm/EditForm';
 
-const ContactListItem = ({ contact: { id, name, number } }) => {
+const ContactListItem = ({ contact }) => {
+  const { id, name, number } = contact;
   const dispatch = useDispatch();
   const [isEditOpen, setIsEditOpen] = useState(false);
 
@@ -21,7 +22,9 @@ const ContactListItem = ({ contact: { id, name, number } }) => {
       <div className="contact-list__item">
         <div className="contact-list__info">
           {name}: {number}
-          {isEditOpen && <EditForm id={id} onSubmit={handleEditClick} />}
+          {isEditOpen && (
+            <EditForm contact={contact} onSubmit={handleEditClick} />
+          )}
         </div>
 
         <button

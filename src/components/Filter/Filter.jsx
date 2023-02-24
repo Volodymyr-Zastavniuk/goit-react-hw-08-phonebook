@@ -25,6 +25,7 @@ const Filter = () => {
             dispatch(setFilterValue(event.currentTarget.value))
           }
           className="filter__input"
+          maxlength="16"
         />
       </label>
     </>
